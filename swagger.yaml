@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: Clothing Shop API
+  description: Clothing Shop API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+components:
+  securitySchemes:
+    ApiKeyAuth:          # Định nghĩa một phương thức xác thực
+      type: apiKey
+      in: header
+      name: Authorization
+paths:
+  /products:
+    get:
+      summary: "Lấy tất cả sản phẩm"
+      description: "Trả về danh sách tất cả sản phẩm có trong cơ sở dữ liệu."
+      responses:
+        '200':
+          description: "Danh sách sản phẩm thành công"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          description: "ID của sản phẩm"
+                        name:
+                          type: string
+                          description: "Tên của sản phẩm"
+                        price:
+                          type: number
+                          description: "Giá của sản phẩm"
+                        description:
+                          type: string
+                          description: "Mô tả của sản phẩm"
+                        images:
+                          type: object
+                          properties:
+                            mainImg:
+                              type: string
+                              description: "ID của hình ảnh chính"
+                            subImg:
+                              type: string
+                              description: "ID của hình ảnh phụ"
+        '500':
+          description: "Có lỗi xảy ra, vui lòng thử lại sau"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Có lỗi xảy ra, vui lòng thử lại sau"
